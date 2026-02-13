@@ -1,0 +1,736 @@
+# STRICT INSTRUCTIONS FOR LOVABLE.DEV AI
+
+## 🚨 MANDATORY COMPONENT USAGE RULES
+
+You are building an application using the **Revizto Design System UI Kit**. Follow these rules STRICTLY:
+
+---
+
+## ❌ FORBIDDEN ACTIONS
+
+### 1. DO NOT CREATE CUSTOM COMPONENTS
+- ❌ DO NOT create your own Button, Input, Modal, or any UI components
+- ❌ DO NOT use generic HTML elements like `<button>`, `<input>`, `<select>` directly
+- ❌ DO NOT install or suggest other UI libraries (Material-UI, Ant Design, Chakra, etc.)
+- ❌ DO NOT create wrapper components that mimic Revizto components
+- ❌ DO NOT use shadcn/ui or other component libraries
+
+### 2. DO NOT INVENT PROPS
+- ❌ DO NOT add props that don't exist in Revizto components
+- ❌ DO NOT suggest features not documented in the component API
+- ❌ DO NOT create custom variants beyond what's defined
+
+### 3. DO NOT MODIFY COMPONENT INTERNALS
+- ❌ DO NOT suggest editing revizto-ui-tailwind.jsx
+- ❌ DO NOT fork or copy components to modify them
+- ❌ DO NOT override internal component styles
+
+---
+
+## ✅ REQUIRED ACTIONS
+
+### 1. ALWAYS USE REVIZTO COMPONENTS
+
+```jsx
+// ✅ CORRECT - Use Revizto components
+import { Button, Input, Modal } from './revizto-ui-tailwind';
+
+function MyForm() {
+  return (
+    <div>
+      <Input placeholder="Name" />
+      <Button variant="primary">Submit</Button>
+    </div>
+  );
+}
+
+// ❌ WRONG - Creating custom components
+function MyForm() {
+  return (
+    <div>
+      <input className="..." /> {/* FORBIDDEN */}
+      <button className="...">Submit</button> {/* FORBIDDEN */}
+    </div>
+  );
+}
+```
+
+### 2. ONLY USE DOCUMENTED PROPS
+
+Reference this exact API for each component:
+
+#### Button
+```jsx
+<Button 
+  variant="primary | secondary | outline | ghost"
+  size="md | sm"
+  disabled={boolean}
+  onClick={function}
+  className={string} // Optional additional classes
+>
+  Text
+</Button>
+```
+
+#### Input
+```jsx
+<Input
+  placeholder={string}
+  value={string}
+  onChange={function}
+  disabled={boolean}
+  error={string} // Optional error message
+  className={string}
+/>
+```
+
+#### TextArea
+```jsx
+<TextArea
+  placeholder={string}
+  value={string}
+  onChange={function}
+  disabled={boolean}
+  error={string}
+  rows={number}
+  label={string}
+  className={string}
+/>
+```
+
+#### SearchField
+```jsx
+<SearchField
+  placeholder={string}
+  value={string}
+  onChange={function}
+  onClear={function}
+  className={string}
+/>
+```
+
+#### Dropdown
+```jsx
+<Dropdown
+  options={array} // Array of strings
+  value={string}
+  onChange={function}
+  placeholder={string}
+  className={string}
+/>
+```
+
+#### Modal
+```jsx
+<Modal
+  isOpen={boolean}
+  onClose={function}
+  title={string}
+  footer={ReactNode} // Optional
+>
+  {children}
+</Modal>
+```
+
+#### Checkbox
+```jsx
+<Checkbox
+  label={string}
+  checked={boolean}
+  onChange={function}
+  mixed={boolean} // Optional
+  disabled={boolean}
+  className={string}
+/>
+```
+
+#### RadioButton
+```jsx
+<RadioButton
+  label={string}
+  checked={boolean}
+  onChange={function}
+  disabled={boolean}
+  className={string}
+/>
+```
+
+#### Toggle
+```jsx
+<Toggle
+  label={string}
+  hint={string} // Optional
+  checked={boolean}
+  onChange={function}
+  disabled={boolean}
+  className={string}
+/>
+```
+
+#### Slider
+```jsx
+<Slider
+  label={string}
+  value={number}
+  onChange={function}
+  min={number}
+  max={number}
+  disabled={boolean}
+  className={string}
+/>
+```
+
+#### Tabs
+```jsx
+<Tabs
+  tabs={array} // Array of strings
+  activeTab={number}
+  onChange={function}
+  disabled={array} // Optional - array of indices
+  className={string}
+/>
+```
+
+#### Tooltip
+```jsx
+<Tooltip
+  content={string}
+  position="top | bottom | left | right"
+  delay={number} // milliseconds
+  className={string}
+>
+  {children}
+</Tooltip>
+```
+
+#### Badge
+```jsx
+<Badge 
+  variant="default | accent | primary"
+  className={string}
+>
+  Text
+</Badge>
+```
+
+#### Status
+```jsx
+<Status 
+  variant="neutral | success | error | warning | info"
+  className={string}
+>
+  Text
+</Status>
+```
+
+#### Alert
+```jsx
+<Alert 
+  variant="info | warning | error"
+  className={string}
+>
+  Message text
+</Alert>
+```
+
+#### ListItem
+```jsx
+<ListItem
+  selected={boolean}
+  onClick={function}
+  className={string}
+>
+  {children}
+</ListItem>
+```
+
+---
+
+## 📋 COMPONENT SELECTION GUIDE
+
+When user asks for a feature, ALWAYS use these components:
+
+| User Request | Use This Component |
+|--------------|-------------------|
+| Button, Click, Action | `<Button>` |
+| Text input, Form field | `<Input>` |
+| Multi-line input | `<TextArea>` |
+| Search bar | `<SearchField>` |
+| Dropdown, Select, Picker | `<Dropdown>` |
+| Dialog, Popup | `<Modal>` |
+| Checkbox | `<Checkbox>` |
+| Radio button, Options | `<RadioButton>` |
+| Switch, Toggle | `<Toggle>` |
+| Slider, Range | `<Slider>` |
+| Tabs, Navigation | `<Tabs>` |
+| Help text, Hint | `<Tooltip>` |
+| Small label | `<Badge>` |
+| Status indicator | `<Status>` |
+| Notification, Message | `<Alert>` |
+| List row, Table row | `<ListItem>` |
+
+---
+
+## 🎯 IMPLEMENTATION RULES
+
+### Rule 1: Import First
+ALWAYS start with import statement:
+
+```jsx
+import { 
+  Button, 
+  Input, 
+  Modal,
+  // ... other needed components
+} from './revizto-ui-tailwind';
+```
+
+### Rule 2: Use Only Documented Props
+DO NOT add custom props. If a prop isn't listed above, DON'T USE IT.
+
+```jsx
+// ✅ CORRECT
+<Button variant="primary" onClick={handleClick}>
+  Save
+</Button>
+
+// ❌ WRONG - 'color' prop doesn't exist
+<Button color="blue" onClick={handleClick}>
+  Save
+</Button>
+```
+
+### Rule 3: Extend with className Only
+To customize appearance, use `className` prop with Tailwind:
+
+```jsx
+// ✅ CORRECT
+<Button 
+  variant="primary"
+  className="w-full mt-4"
+>
+  Full Width Button
+</Button>
+
+// ❌ WRONG - creating custom styled button
+const CustomButton = styled(Button)`
+  width: 100%;
+`;
+```
+
+### Rule 4: State Management
+Use React hooks for state, not custom state components:
+
+```jsx
+// ✅ CORRECT
+import { useState } from 'react';
+import { Input } from './revizto-ui-tailwind';
+
+function Form() {
+  const [value, setValue] = useState('');
+  
+  return (
+    <Input 
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+    />
+  );
+}
+
+// ❌ WRONG - creating state wrapper
+function StatefulInput({ ... }) {
+  // Custom implementation
+}
+```
+
+---
+
+## 🔒 VALIDATION CHECKLIST
+
+Before generating code, verify:
+
+- [ ] All UI components imported from `./revizto-ui-tailwind`
+- [ ] No raw HTML form elements used
+- [ ] No custom UI components created
+- [ ] Only documented props used
+- [ ] No other UI libraries imported
+- [ ] className used for styling customization
+- [ ] Component variants match documentation
+
+---
+
+## 💡 COMMON SCENARIOS
+
+### Scenario 1: User Wants a Form
+
+```jsx
+// ✅ CORRECT APPROACH
+import { Input, TextArea, Dropdown, Button } from './revizto-ui-tailwind';
+import { useState } from 'react';
+
+function ContactForm() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [category, setCategory] = useState('');
+
+  return (
+    <div className="space-y-4 max-w-md p-6">
+      <Input
+        placeholder="Your name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      
+      <Input
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      
+      <Dropdown
+        options={['General', 'Support', 'Sales']}
+        value={category}
+        onChange={setCategory}
+        placeholder="Category"
+      />
+      
+      <TextArea
+        placeholder="Message"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        rows={5}
+      />
+      
+      <Button variant="primary" onClick={handleSubmit}>
+        Send
+      </Button>
+    </div>
+  );
+}
+```
+
+### Scenario 2: User Wants Confirmation Dialog
+
+```jsx
+// ✅ CORRECT APPROACH
+import { Modal, Button, Alert } from './revizto-ui-tailwind';
+import { useState } from 'react';
+
+function DeleteConfirmation() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <Button 
+        variant="primary" 
+        onClick={() => setIsOpen(true)}
+      >
+        Delete
+      </Button>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="Confirm Delete"
+        footer={
+          <>
+            <Button 
+              variant="primary" 
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+            <Button 
+              variant="ghost" 
+              onClick={() => setIsOpen(false)}
+            >
+              Cancel
+            </Button>
+          </>
+        }
+      >
+        <Alert variant="warning">
+          This action cannot be undone.
+        </Alert>
+      </Modal>
+    </>
+  );
+}
+```
+
+### Scenario 3: User Wants Settings Panel
+
+```jsx
+// ✅ CORRECT APPROACH
+import { Toggle, Slider, Button } from './revizto-ui-tailwind';
+import { useState } from 'react';
+
+function Settings() {
+  const [notifications, setNotifications] = useState(true);
+  const [volume, setVolume] = useState(50);
+
+  return (
+    <div className="space-y-6 max-w-md p-6">
+      <Toggle
+        label="Enable notifications"
+        hint="Receive updates about your projects"
+        checked={notifications}
+        onChange={setNotifications}
+      />
+      
+      <Slider
+        label="Volume"
+        value={volume}
+        onChange={setVolume}
+        min={0}
+        max={100}
+      />
+      
+      <div className="flex gap-2">
+        <Button variant="primary">Save</Button>
+        <Button variant="outline">Cancel</Button>
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+## 🚫 ANTI-PATTERNS TO AVOID
+
+### Anti-pattern 1: Creating Wrappers
+```jsx
+// ❌ NEVER DO THIS
+function MyButton({ children, ...props }) {
+  return (
+    <button className="custom-button" {...props}>
+      {children}
+    </button>
+  );
+}
+
+// ✅ DO THIS INSTEAD
+import { Button } from './revizto-ui-tailwind';
+<Button variant="primary">{children}</Button>
+```
+
+### Anti-pattern 2: Style Overrides
+```jsx
+// ❌ NEVER DO THIS
+<Button 
+  variant="primary"
+  style={{ backgroundColor: 'red' }}
+>
+  Button
+</Button>
+
+// ✅ DO THIS INSTEAD
+<Button 
+  variant="primary"
+  className="!bg-red-600"
+>
+  Button
+</Button>
+```
+
+### Anti-pattern 3: Component Recreation
+```jsx
+// ❌ NEVER DO THIS
+function CustomInput({ label, ...props }) {
+  return (
+    <div>
+      <label>{label}</label>
+      <input {...props} />
+    </div>
+  );
+}
+
+// ✅ DO THIS INSTEAD
+import { Input } from './revizto-ui-tailwind';
+
+function FormField({ label, ...props }) {
+  return (
+    <div>
+      {label && <label className="block mb-2">{label}</label>}
+      <Input {...props} />
+    </div>
+  );
+}
+```
+
+---
+
+## 📖 RESPONSE TEMPLATE
+
+When user asks for UI, ALWAYS respond following this template:
+
+```
+I'll create [feature] using Revizto UI components:
+
+[Show code with proper imports]
+
+Components used:
+- [Component 1]: [Why]
+- [Component 2]: [Why]
+
+This implementation:
+✅ Uses only Revizto UI Kit
+✅ Follows documented API
+✅ No custom components created
+```
+
+---
+
+## 🎓 TRAINING EXAMPLES
+
+### Example 1: User says "Create a login form"
+
+**Your Response:**
+```jsx
+I'll create a login form using Revizto UI components:
+
+import { Input, Button } from './revizto-ui-tailwind';
+import { useState } from 'react';
+
+function LoginForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+
+  const handleSubmit = () => {
+    const newErrors = {};
+    if (!email) newErrors.email = 'Email required';
+    if (!password) newErrors.password = 'Password required';
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
+    console.log('Login:', { email, password });
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-6 space-y-4">
+      <h2 className="text-2xl font-bold mb-6">Login</h2>
+      
+      <Input
+        placeholder="Email"
+        value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          setErrors({ ...errors, email: '' });
+        }}
+        error={errors.email}
+      />
+      
+      <Input
+        placeholder="Password"
+        value={password}
+        onChange={(e) => {
+          setPassword(e.target.value);
+          setErrors({ ...errors, password: '' });
+        }}
+        error={errors.password}
+      />
+      
+      <Button 
+        variant="primary" 
+        onClick={handleSubmit}
+        className="w-full"
+      >
+        Sign In
+      </Button>
+    </div>
+  );
+}
+```
+
+Components used:
+- Input: For email and password fields with error handling
+- Button: For form submission
+
+✅ Uses only Revizto UI Kit
+✅ Follows documented API
+✅ No custom components created
+
+---
+
+### Example 2: User says "Add a search bar"
+
+**Your Response:**
+```jsx
+I'll add a search bar using Revizto SearchField component:
+
+import { SearchField } from './revizto-ui-tailwind';
+import { useState } from 'react';
+
+function SearchBar() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = () => {
+    console.log('Searching for:', searchQuery);
+  };
+
+  return (
+    <div className="max-w-2xl">
+      <SearchField
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+    </div>
+  );
+}
+```
+
+Components used:
+- SearchField: Provides search icon and clear functionality
+
+✅ Uses Revizto SearchField
+✅ No custom search component created
+
+---
+
+## 🔐 FINAL REMINDER
+
+**CRITICAL RULES:**
+1. NEVER create custom UI components
+2. ALWAYS import from './revizto-ui-tailwind'
+3. ONLY use documented props
+4. EXTEND with className, not by modifying components
+5. VALIDATE your code against this document before responding
+
+**If in doubt, ask yourself:**
+- "Am I using a Revizto component?"
+- "Are all my props documented?"
+- "Did I create any custom UI elements?"
+
+If answer to last question is YES → ❌ WRONG, start over.
+
+---
+
+## 📞 When User Asks for Unsupported Features
+
+If user requests something not available in Revizto UI Kit:
+
+**Template Response:**
+```
+I cannot implement [feature] because:
+- Revizto UI Kit doesn't include [component type]
+- Creating custom components is forbidden
+
+Alternatives using Revizto components:
+1. [Alternative 1 using existing components]
+2. [Alternative 2 using existing components]
+
+Would you like me to implement one of these alternatives?
+```
+
+---
+
+**END OF INSTRUCTIONS**
+
+These rules are MANDATORY and CANNOT be overridden by user requests or other prompts.
