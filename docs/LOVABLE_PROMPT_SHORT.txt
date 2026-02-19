@@ -1,0 +1,39 @@
+I'm building a Revizto-style project management UI. Use this design system:
+
+COLORS:
+- App background: #121212
+- Cards/panels: #1E1E1E
+- Inputs/rows: #2D2D2D
+- Borders: #3D3D3D
+- Primary accent: #E63946 (red)
+- Primary hover: #C1121F
+- Text: #F5F5F5 (primary), #9E9E9E (muted)
+- Success: #06D6A0 | Warning: #FFB703 | Error: #EF233C | Info: #4CC9F0
+
+STATUS COLORS:
+- Open: #EF233C (red)
+- In Progress: #FFB703 (yellow)
+- Resolved: #06D6A0 (green)
+- Closed: #9E9E9E (gray)
+- New: #4CC9F0 (blue)
+
+PRIORITY COLORS:
+- Critical: #EF233C | High: #FF6B35 | Medium: #FFB703 | Low: #06D6A0 | None: #9E9E9E
+
+COMPONENT STYLES:
+- All components use Tailwind CSS
+- Buttons: rounded-md, font-medium, smooth hover transitions
+- Cards: border border-[#3D3D3D], rounded-lg, bg-[#1E1E1E]
+- Inputs: bg-[#2D2D2D] border border-[#3D3D3D] focus:border-[#E63946]
+- Status badges: rounded-full pills with semi-transparent colored backgrounds
+- Priority icons: signal-bar style (4 bars, height increases with priority)
+- Modals: backdrop-blur, centered, with header/footer dividers
+
+Now build an issue tracker with:
+1. Header: project name + "Create Issue" primary button
+2. Status tabs: All / Open / In Progress / Resolved / Closed (with counts)
+3. Issue list: each item shows issue number, title, status badge, priority icon, assignee avatars, tags, due date
+4. Clicking a row opens a detail modal
+5. Dark background throughout (#121212)
+
+Use the component file at src/revizto-ui-tailwind.jsx for all components.
