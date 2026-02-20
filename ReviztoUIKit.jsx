@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 // ============================================================
 // DESIGN TOKENS
 // ============================================================
@@ -30,24 +29,19 @@ export const colors = {
     warning: { default: '#fbbc04' }
   }
 };
-
 export const spacing = {
   xs: '2px', sm: '4px', md: '8px', lg: '12px', xl: '16px', '2xl': '24px'
 };
-
 export const radius = { none: '0px', sm: '2px', md: '4px' };
-
 export const typography = {
   fontFamily: 'Roboto, sans-serif',
   sizes: { xs: '12px', sm: '14px', lg: '18px' },
   weights: { regular: 400, medium: 500 },
   lineHeights: { xs: '16px', sm: '18px', md: '20px', xl: '28px' }
 };
-
 // ============================================================
 // COMPONENTS
 // ============================================================
-
 // Button
 export const Button = ({ children, variant = 'primary', size = 'md', disabled = false, onClick }) => {
   const [isHovered, setIsHovered] = React.useState(false);
@@ -82,7 +76,6 @@ export const Button = ({ children, variant = 'primary', size = 'md', disabled = 
     </button>
   );
 };
-
 // Input
 export const Input = ({ placeholder, disabled = false, value, onChange, error }) => {
   const [focused, setFocused] = useState(false);
@@ -103,7 +96,6 @@ export const Input = ({ placeholder, disabled = false, value, onChange, error })
     </div>
   );
 };
-
 // TextArea
 export const TextArea = ({ placeholder, disabled = false, value, onChange, error, rows = 4, label }) => {
   const [focused, setFocused] = useState(false);
@@ -125,7 +117,6 @@ export const TextArea = ({ placeholder, disabled = false, value, onChange, error
     </div>
   );
 };
-
 // SearchField
 export const SearchField = ({ placeholder = 'Search', value, onChange, onClear }) => {
   const [focused, setFocused] = useState(false);
@@ -149,7 +140,7 @@ export const SearchField = ({ placeholder = 'Search', value, onChange, onClear }
         }}
       />
       {value && (
-        <button onClick={handleClear} style={{ position: 'absolute', right: spacing.lg, background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', width: '20px', height: '20px' }}>
+        <button onClick={handleClear} style={{ position: 'absolute', right: spacing.lg, background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', width: '20px', height: '20px' }}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M6 6L14 14M14 6L6 14" stroke={colors.text.secondary.default} strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
@@ -158,7 +149,6 @@ export const SearchField = ({ placeholder = 'Search', value, onChange, onClear }
     </div>
   );
 };
-
 // Dropdown
 export const Dropdown = ({ options, value, onChange, placeholder = 'Select...' }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -180,14 +170,24 @@ export const Dropdown = ({ options, value, onChange, placeholder = 'Select...' }
         textAlign: 'left', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxSizing: 'border-box'
       }}>
         <span>{value || placeholder}</span>
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke={colors.text.secondary.default} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ flexShrink: 0 }}>
+          <path d="M3 4.5L6 7.5L9 4.5" stroke={colors.text.secondary.default} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
       </button>
       {isOpen && (
-        <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: spacing.sm, backgroundColor: colors.fill.primarySubtle.default, border: `1px solid ${colors.border.primary.default}`, borderRadius: radius.md, boxShadow: '0 4px 16px rgba(0,0,0,0.16)', zIndex: 1000, maxHeight: '300px', overflowY: 'auto' }}>
+        <div style={{
+          position: 'absolute', top: '100%', left: 0, right: 0, marginTop: spacing.sm,
+          backgroundColor: colors.fill.primarySubtle.default, border: `1px solid ${colors.border.primary.default}`,
+          borderRadius: radius.md, boxShadow: '0 4px 16px rgba(0,0,0,0.16)', zIndex: 1000, maxHeight: '300px', overflowY: 'auto'
+        }}>
           {options.map((option, i) => (
             <div key={i} onClick={() => { onChange(option); setIsOpen(false); }}
               onMouseEnter={() => setHoveredIndex(i)} onMouseLeave={() => setHoveredIndex(null)}
-              style={{ padding: '8px 12px', cursor: 'pointer', fontFamily: typography.fontFamily, fontSize: typography.sizes.sm, color: colors.text.primary.default, transition: 'background-color 0.2s', backgroundColor: value === option ? colors.fill.primarySubtle.selected : hoveredIndex === i ? colors.fill.primarySubtle.hover : 'transparent' }}>
+              style={{
+                padding: '8px 12px', cursor: 'pointer', fontFamily: typography.fontFamily, fontSize: typography.sizes.sm,
+                color: colors.text.primary.default, transition: 'background-color 0.2s',
+                backgroundColor: value === option ? colors.fill.primarySubtle.selected : hoveredIndex === i ? colors.fill.primarySubtle.hover : 'transparent'
+              }}>
               {option}
             </div>
           ))}
@@ -196,7 +196,6 @@ export const Dropdown = ({ options, value, onChange, placeholder = 'Select...' }
     </div>
   );
 };
-
 // Modal
 export const Modal = ({ isOpen, onClose, title, children, footer }) => {
   if (!isOpen) return null;
@@ -213,7 +212,6 @@ export const Modal = ({ isOpen, onClose, title, children, footer }) => {
     </div>
   );
 };
-
 // Badge
 export const Badge = ({ children, variant = 'default' }) => {
   const variants = {
@@ -227,7 +225,6 @@ export const Badge = ({ children, variant = 'default' }) => {
     </span>
   );
 };
-
 // Status
 export const Status = ({ children, variant = 'neutral' }) => {
   const variants = {
@@ -243,7 +240,6 @@ export const Status = ({ children, variant = 'neutral' }) => {
     </span>
   );
 };
-
 // ListItem
 export const ListItem = ({ children, selected = false, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -254,7 +250,6 @@ export const ListItem = ({ children, selected = false, onClick }) => {
     </div>
   );
 };
-
 // Checkbox
 export const Checkbox = ({ label, checked = false, mixed = false, disabled = false, onChange }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -275,7 +270,6 @@ export const Checkbox = ({ label, checked = false, mixed = false, disabled = fal
     </label>
   );
 };
-
 // RadioButton
 export const RadioButton = ({ label, checked = false, disabled = false, onChange }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -291,7 +285,6 @@ export const RadioButton = ({ label, checked = false, disabled = false, onChange
     </label>
   );
 };
-
 // Toggle
 export const Toggle = ({ label, hint, checked = false, disabled = false, onChange }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -313,7 +306,6 @@ export const Toggle = ({ label, hint, checked = false, disabled = false, onChang
     </div>
   );
 };
-
 // Slider
 export const Slider = ({ label, value = 50, min = 0, max = 100, onChange, disabled = false }) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -345,7 +337,6 @@ export const Slider = ({ label, value = 50, min = 0, max = 100, onChange, disabl
     </div>
   );
 };
-
 // Tabs
 export const Tabs = ({ tabs, activeTab, onChange, disabled = [] }) => {
   const [hoveredTab, setHoveredTab] = useState(null);
@@ -364,22 +355,21 @@ export const Tabs = ({ tabs, activeTab, onChange, disabled = [] }) => {
     </div>
   );
 };
-
 // Tooltip
 export const Tooltip = ({ children, content, position = 'top', delay = 200 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [timeoutId, setTimeoutId] = useState(null);
+  const [timeout, setTimeout_] = useState(null);
   const posStyles = {
-    top: { bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '4px' },
-    bottom: { top: '100%', left: '50%', transform: 'translateX(-50%)', marginTop: '4px' },
-    left: { right: '100%', top: '50%', transform: 'translateY(-50%)', marginRight: '4px' },
-    right: { left: '100%', top: '50%', transform: 'translateY(-50%)', marginLeft: '4px' }
+    top: { tooltip: { bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: '4px' } },
+    bottom: { tooltip: { top: '100%', left: '50%', transform: 'translateX(-50%)', marginTop: '4px' } },
+    left: { tooltip: { right: '100%', top: '50%', transform: 'translateY(-50%)', marginRight: '4px' } },
+    right: { tooltip: { left: '100%', top: '50%', transform: 'translateY(-50%)', marginLeft: '4px' } }
   };
   return (
-    <div onMouseEnter={() => { const t = setTimeout(() => setIsVisible(true), delay); setTimeoutId(t); }} onMouseLeave={() => { clearTimeout(timeoutId); setIsVisible(false); }} style={{ position: 'relative', display: 'inline-flex' }}>
+    <div onMouseEnter={() => { const t = window.setTimeout(() => setIsVisible(true), delay); setTimeout_(t); }} onMouseLeave={() => { window.clearTimeout(timeout); setIsVisible(false); }} style={{ position: 'relative', display: 'inline-flex' }}>
       {children}
       {isVisible && (
-        <div style={{ position: 'absolute', zIndex: 1000, ...posStyles[position] }}>
+        <div style={{ position: 'absolute', zIndex: 1000, ...posStyles[position]?.tooltip }}>
           <div style={{ display: 'inline-flex', width: 'max-content', maxWidth: '300px', padding: '8px 12px', backgroundColor: colors.fill.primarySubtle.default, color: colors.text.primary.default, fontSize: typography.sizes.sm, fontFamily: typography.fontFamily, lineHeight: typography.lineHeights.md, borderRadius: radius.md, boxShadow: '0 4px 16px rgba(0,0,0,0.16)', wordBreak: 'break-word' }}>
             {content}
           </div>
@@ -388,7 +378,6 @@ export const Tooltip = ({ children, content, position = 'top', delay = 200 }) =>
     </div>
   );
 };
-
 // Alert
 export const Alert = ({ children, variant = 'info' }) => {
   const variants = {
@@ -404,9 +393,8 @@ export const Alert = ({ children, variant = 'info' }) => {
     </div>
   );
 };
-
 // ============================================================
-// SHOWCASE — remove or replace with your own pages in Lovable.dev
+// SHOWCASE (default export — remove or replace in Lovable.dev)
 // ============================================================
 export default function ReviztoUIKit() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -423,20 +411,18 @@ export default function ReviztoUIKit() {
   const [sliderValue, setSliderValue] = useState(50);
   const [activeTab1, setActiveTab1] = useState(0);
   const [activeTab2, setActiveTab2] = useState(0);
-
-  const S = ({ children }) => (
+  const SectionTitle = ({ children }) => (
     <h2 style={{ fontSize: typography.sizes.lg, fontWeight: typography.weights.medium, color: colors.text.primary.default, marginBottom: spacing.xl, marginTop: 0 }}>{children}</h2>
   );
-
   return (
     <div style={{ fontFamily: typography.fontFamily, padding: '40px', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', backgroundColor: colors.fill.primarySubtle.default, borderRadius: radius.md, padding: '40px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
         <h1 style={{ fontSize: '32px', fontWeight: typography.weights.medium, color: colors.text.primary.default, marginBottom: '8px' }}>Revizto Design System</h1>
-        <p style={{ fontSize: typography.sizes.sm, color: colors.text.secondary.default, marginBottom: '40px' }}>Complete UI Kit for Lovable.dev</p>
-
+        <p style={{ fontSize: typography.sizes.sm, color: colors.text.secondary.default, marginBottom: '40px' }}>Complete UI Kit — ready for Lovable.dev</p>
+        {/* Buttons */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Buttons</S>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '32px' }}>
+          <SectionTitle>Buttons</SectionTitle>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '32px' }}>
             {['primary','secondary','outline','ghost'].map(v => (
               <div key={v} style={{ display: 'flex', flexDirection: 'column', gap: spacing.xl }}>
                 <h3 style={{ fontSize: typography.sizes.sm, fontWeight: typography.weights.regular, color: colors.text.primary.default, margin: 0, textTransform: 'capitalize' }}>{v}</h3>
@@ -446,57 +432,57 @@ export default function ReviztoUIKit() {
             ))}
           </div>
         </section>
-
+        {/* Inputs */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Inputs</S>
+          <SectionTitle>Inputs</SectionTitle>
           <div style={{ display: 'grid', gap: spacing.xl, maxWidth: '400px' }}>
             <Input placeholder="Enter text..." value={inputValue} onChange={e => setInputValue(e.target.value)} />
             <Input placeholder="Disabled input" disabled />
             <Input placeholder="Input with error" error="This field is required" />
           </div>
         </section>
-
+        {/* TextArea */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Text Area</S>
+          <SectionTitle>Text Area</SectionTitle>
           <div style={{ display: 'grid', gap: spacing.xl, maxWidth: '600px' }}>
             <TextArea label="Label" placeholder="Placeholder" value={textareaValue} onChange={e => setTextareaValue(e.target.value)} rows={4} />
-            <TextArea label="Label" placeholder="Disabled" disabled rows={4} />
-            <TextArea label="Label" placeholder="With error" error="This field is required" rows={4} />
+            <TextArea label="Label" placeholder="Disabled textarea" disabled rows={4} />
+            <TextArea label="Label" placeholder="Textarea with error" error="This field is required" rows={4} />
           </div>
         </section>
-
+        {/* Search */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Search Field</S>
+          <SectionTitle>Search Field</SectionTitle>
           <div style={{ maxWidth: '600px' }}>
             <SearchField placeholder="Search" value={searchValue} onChange={e => setSearchValue(e.target.value)} />
           </div>
         </section>
-
+        {/* Dropdown */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Dropdown</S>
+          <SectionTitle>Dropdown</SectionTitle>
           <div style={{ maxWidth: '400px' }}>
             <Dropdown options={['Option 1','Option 2','Option 3','Option 4']} value={dropdownValue} onChange={setDropdownValue} placeholder="Select an option..." />
           </div>
         </section>
-
+        {/* Badges */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Badges</S>
+          <SectionTitle>Badges</SectionTitle>
           <div style={{ display: 'flex', gap: spacing.md, flexWrap: 'wrap' }}>
             <Badge variant="default">Default</Badge>
             <Badge variant="accent">Accent</Badge>
             <Badge variant="primary">Primary</Badge>
           </div>
         </section>
-
+        {/* Status */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Status Badges</S>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(180px,1fr))', gap: spacing.xl }}>
+          <SectionTitle>Status Badges</SectionTitle>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: spacing.xl }}>
             {[
-              { label:'Neutral', variant:'neutral', items:['Active','Canceled','Archived','Ended','Queued','Expired'] },
-              { label:'Success', variant:'success', items:['Success','On'] },
-              { label:'Error', variant:'error', items:['Deleted','Suspended','Failed'] },
-              { label:'Warning', variant:'warning', items:['Pending','In progress','Partially failed'] },
-              { label:'Info', variant:'info', items:['Running'] }
+              { label: 'Neutral', variant: 'neutral', items: ['Active','Canceled','Archived','Ended','Queued','Expired'] },
+              { label: 'Success', variant: 'success', items: ['Success','On'] },
+              { label: 'Error', variant: 'error', items: ['Deleted','Suspended','Failed'] },
+              { label: 'Warning', variant: 'warning', items: ['Pending','In progress','Partially failed'] },
+              { label: 'Info', variant: 'info', items: ['Running'] }
             ].map(({ label, variant, items }) => (
               <div key={label}>
                 <h3 style={{ fontSize: typography.sizes.sm, fontWeight: typography.weights.medium, color: colors.text.primary.default, marginBottom: spacing.md }}>{label}</h3>
@@ -507,16 +493,18 @@ export default function ReviztoUIKit() {
             ))}
           </div>
         </section>
-
+        {/* List */}
         <section style={{ marginBottom: '40px' }}>
-          <S>List / Rows</S>
+          <SectionTitle>List / Rows</SectionTitle>
           <div style={{ maxWidth: '600px', border: `1px solid ${colors.border.primary.default}`, borderRadius: radius.md, overflow: 'hidden' }}>
-            {[1,2,3,4].map(n => <ListItem key={n} selected={selectedItem===n} onClick={() => setSelectedItem(n)}>List item {n} — click to select</ListItem>)}
+            {[1,2,3,4].map(n => (
+              <ListItem key={n} selected={selectedItem === n} onClick={() => setSelectedItem(n)}>List item {n} — click to select</ListItem>
+            ))}
           </div>
         </section>
-
+        {/* Checkbox */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Checkbox</S>
+          <SectionTitle>Checkbox</SectionTitle>
           <div style={{ display: 'flex', flexDirection: 'column', gap: spacing.xl, maxWidth: '400px' }}>
             <Checkbox label="Unchecked" checked={checkbox1} onChange={setCheckbox1} />
             <Checkbox label="Checked" checked={checkbox2} onChange={setCheckbox2} />
@@ -525,36 +513,38 @@ export default function ReviztoUIKit() {
             <Checkbox label="Disabled checked" checked disabled />
           </div>
         </section>
-
+        {/* Radio */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Radio Button</S>
+          <SectionTitle>Radio Button</SectionTitle>
           <div style={{ display: 'flex', flexDirection: 'column', gap: spacing.xl, maxWidth: '400px' }}>
-            {['option1','option2','option3'].map((o,i) => <RadioButton key={o} label={`Option ${i+1}`} checked={radio===o} onChange={() => setRadio(o)} />)}
+            {['option1','option2','option3'].map((o, i) => (
+              <RadioButton key={o} label={`Option ${i+1}`} checked={radio === o} onChange={() => setRadio(o)} />
+            ))}
             <RadioButton label="Disabled unchecked" disabled />
             <RadioButton label="Disabled checked" checked disabled />
           </div>
         </section>
-
+        {/* Toggle */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Toggle</S>
+          <SectionTitle>Toggle</SectionTitle>
           <div style={{ display: 'flex', flexDirection: 'column', gap: spacing.xl, maxWidth: '400px' }}>
             <Toggle label="Placeholder" hint="Hint text" checked={toggle1} onChange={setToggle1} />
             <Toggle label="Placeholder" hint="Hint text" checked={toggle2} onChange={setToggle2} />
-            <Toggle label="Placeholder" hint="Hint text" disabled />
+            <Toggle label="Placeholder" hint="Hint text" checked={false} disabled />
             <Toggle label="Placeholder" hint="Hint text" checked disabled />
           </div>
         </section>
-
+        {/* Slider */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Slider</S>
+          <SectionTitle>Slider</SectionTitle>
           <div style={{ display: 'flex', flexDirection: 'column', gap: spacing.xl, maxWidth: '600px' }}>
             <Slider label="Label" value={sliderValue} onChange={setSliderValue} />
             <Slider label="Label (disabled)" value={75} disabled />
           </div>
         </section>
-
+        {/* Tabs */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Tabs</S>
+          <SectionTitle>Tabs</SectionTitle>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             <div>
               <p style={{ fontSize: typography.sizes.sm, color: colors.text.secondary.default, marginBottom: spacing.md }}>Default</p>
@@ -566,9 +556,9 @@ export default function ReviztoUIKit() {
             </div>
           </div>
         </section>
-
+        {/* Tooltip */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Tooltip</S>
+          <SectionTitle>Tooltip</SectionTitle>
           <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap', padding: '60px 40px', justifyContent: 'center' }}>
             {['top','bottom','left','right'].map(pos => (
               <Tooltip key={pos} content="Tooltip text" position={pos}>
@@ -577,38 +567,52 @@ export default function ReviztoUIKit() {
             ))}
           </div>
         </section>
-
+        {/* Alerts */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Alerts</S>
+          <SectionTitle>Alerts</SectionTitle>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <Alert variant="info">Information alert — Lorem ipsum dolor sit amet.</Alert>
-            <Alert variant="warning">Warning alert — Lorem ipsum dolor sit amet.</Alert>
-            <Alert variant="error">Error alert — Lorem ipsum dolor sit amet.</Alert>
+            <Alert variant="info">Information alert — Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Alert>
+            <Alert variant="warning">Warning alert — Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Alert>
+            <Alert variant="error">Error alert — Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Alert>
           </div>
         </section>
-
+        {/* Modal trigger */}
         <section style={{ marginBottom: '40px' }}>
-          <S>Modal</S>
+          <SectionTitle>Modal</SectionTitle>
           <Button variant="primary" onClick={() => setModalOpen(true)}>Open Modal</Button>
         </section>
-
+        {/* Color Palette */}
         <section>
-          <S>Color Palette</S>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(130px,1fr))', gap: spacing.xl }}>
-            {[['Primary Text','#323232'],['Secondary Text','#6d6d6d'],['Accent','#386cff'],['Accent Subtle','#e9f4ff'],['Success','#34a853'],['Success Subtle','#e6f4ea'],['Error','#ea4335'],['Error Subtle','#fce8e6'],['Warning','#fbbc04'],['Warning Subtle','#fef7e0'],['Selected','#e9f4ff'],['Hover','#f5f5f5'],['Border','#e7e7e7'],['Disabled','#aeaeae']].map(([name,color]) => (
+          <SectionTitle>Color Palette</SectionTitle>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: spacing.xl }}>
+            {[
+              ['Primary Text', colors.text.primary.default],
+              ['Secondary Text', colors.text.secondary.default],
+              ['Accent', colors.fill.accentSolid.default],
+              ['Accent Subtle', colors.fill.accentSubtle.default],
+              ['Success', colors.border.success.default],
+              ['Success Subtle', colors.fill.successSubtle.default],
+              ['Error', colors.border.error.default],
+              ['Error Subtle', colors.fill.errorSubtle.default],
+              ['Warning', colors.border.warning.default],
+              ['Warning Subtle', colors.fill.warningSubtle.default],
+              ['Selected', colors.fill.primarySubtle.selected],
+              ['Hover', colors.fill.primarySubtle.hover],
+              ['Border', colors.border.primary.default],
+              ['Disabled', colors.text.primary.disabled]
+            ].map(([name, color]) => (
               <div key={name}>
-                <div style={{ width:'100%',height:'56px',backgroundColor:color,borderRadius:radius.md,border:`1px solid ${colors.border.primary.default}`,marginBottom:spacing.sm }} />
-                <div style={{ fontSize:typography.sizes.xs,color:colors.text.secondary.default }}>{name}</div>
-                <div style={{ fontSize:typography.sizes.xs,color:colors.text.primary.default,fontFamily:'monospace' }}>{color}</div>
+                <div style={{ width: '100%', height: '64px', backgroundColor: color, borderRadius: radius.md, border: `1px solid ${colors.border.primary.default}`, marginBottom: spacing.sm }} />
+                <div style={{ fontSize: typography.sizes.xs, color: colors.text.secondary.default }}>{name}</div>
+                <div style={{ fontSize: typography.sizes.xs, color: colors.text.primary.default, fontFamily: 'monospace' }}>{color}</div>
               </div>
             ))}
           </div>
         </section>
       </div>
-
       <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title="Lorem ipsum dolor"
         footer={<><Button variant="primary" onClick={() => setModalOpen(false)}>Done</Button><Button variant="ghost" onClick={() => setModalOpen(false)}>Cancel</Button></>}>
-        <p style={{ fontSize:'14px',color:colors.text.primary.default,lineHeight:'1.6',margin:0 }}>
+        <p style={{ fontSize: '14px', color: colors.text.primary.default, lineHeight: '1.6', margin: 0 }}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
       </Modal>
